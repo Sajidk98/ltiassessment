@@ -33,3 +33,12 @@ export const signUpSchema = yup.object({
     return this.parent.password === value
   })
 });
+
+export const eventValidation = yup.object({
+  event_name: yup
+    .string("Enter your event name")
+    .required("event name is required is required"),
+    price: yup
+    .string("Enter your price")
+    .required("Price is required")
+});

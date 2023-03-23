@@ -1,31 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
+import data from './data.json'
 
 export const userReducer = createSlice({
   name: 'user',
   initialState: {
-    users: [],
+    users: data.users,
   },
   reducers: {
-    addUser: (state) => {
-        console.log("trigger")
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      const tempUser = state.users
-      tempUser.push({
-        email: "sajid@ansari.com",
-        password: "somePass"
-      })
-      state.users = tempUser
-    },
-    // decrement: (state) => {
-    //   state.value -= 1
-    // },
-    // incrementByAmount: (state, action) => {
-    //   state.value += action.payload
-    // },
-  },
+    addUser: (state, action) => {
+      const id =  state.users.length+1
+     state.users.push({...action.payload, id})
+     localStorage.setItem('user', id)
+    }
+  }
 })
 
 export const { addUser } = userReducer.actions

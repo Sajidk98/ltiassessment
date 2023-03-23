@@ -1,9 +1,13 @@
 import React from "react";
-import { RouterProvider } from "react-router-dom";
-import router from "./routes";
 import "./App.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import SignUp from "./containers/SignUp";
+import Home from "./containers/Home";
+import Login from "./containers/Login";
+import PrivateRoutes from "./utils/protectedRoute";
 
 function App() {
   return (
@@ -15,7 +19,15 @@ function App() {
       }}
     >
       <Provider store={store}>
-        <RouterProvider router={router} />
+      <Router>
+          <Routes>
+            <Route element={<PrivateRoutes />}>
+                <Route element={<Home/>} path="/" exact/>
+            </Route>
+            <Route element={<Login/>} path="/login"/>
+            <Route element={<SignUp/>} path="/signup"/>
+          </Routes>
+      </Router>
       </Provider>
     </div>
   );

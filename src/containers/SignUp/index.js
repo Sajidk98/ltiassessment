@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import "../Login/style.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
 import { signUpSchema } from "../../utils/validation";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../redux/userReducer";
 
 export default function SignUp() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const users = useSelector(state => state.user)
   const initialValues = {
     email: "",
     password: "",
@@ -17,13 +22,15 @@ export default function SignUp() {
     initialValues,
     validationSchema: signUpSchema,
     onSubmit: (values) => {
-      console.log({ values });
-      //submit the form here
+      dispatch(addUser({email: values.email, password: values.password}))
+      navigate('/')
     },
   });
 
   return (
-    <div>
+    <>
+    <div style={{flex:1}}></div>
+    <div style={{flex:1}}>
       <form onSubmit={formik.handleSubmit}>
         <div className="field-container">
           <TextField
@@ -43,6 +50,7 @@ export default function SignUp() {
             name="password"
             label="password"
             variant="outlined"
+            type="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -55,6 +63,7 @@ export default function SignUp() {
             name="confirmPassword"
             label="Confirm Password"
             variant="outlined"
+            type="password"
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
             error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
@@ -63,11 +72,13 @@ export default function SignUp() {
         </div>
         <div className="field-container button-container">
           <Button type="submit" variant="contained">
-            Login
+            SignUp
           </Button>
-          <Link to="/signup">SignUp</Link>
+          <Link style={{marginLeft: 8}} to='/login'>Login</Link>
         </div>
       </form>
     </div>
+    <div style={{flex:1}}></div>
+    </>
   );
 }

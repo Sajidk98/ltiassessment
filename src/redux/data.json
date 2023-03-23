@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "sajid@ansari.com",
+      "password": "Ansarik@98232"
+    }
+  ],
+  "events": [
+    {
+      "userId": 1,
+      "eventId": 1,
+      "event_name": "test name",
+      "event_date": "01/01/2023",
+      "description": "this is test description",
+      "price": 700,
+      "booking_type": "premium"
+    }
+  ]
+}
