@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 
@@ -32,7 +32,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function CustomTable(props) {
-    const {rows, handleDelete, handleEdit} = props
+const {rows, handleDelete, handleEdit} = props
+if(rows.length == 0){
+    return (
+        <div>
+            <Typography align='center' variant='h3'>There is no activity data, found please add activity</Typography>
+        </div>
+    )
+}
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">

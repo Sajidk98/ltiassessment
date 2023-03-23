@@ -8,6 +8,7 @@ import EventForm from "./eventForm";
 
 export default function Home() {
   const events = useSelector((state) => state.events.events);
+  const users = useSelector((state) => state.users.users);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [editId, setEditId] = useState();
@@ -33,11 +34,13 @@ export default function Home() {
   }
 
   const currentUser = localStorage.getItem("user");
+  const userName = users.filter(item=> item.id == currentUser)[0].username
   const eventList = events.filter((item) => item.userId == currentUser);
 
   return (
     <div style={{ width: "100%" }}>
-      <div style={{ display: "flex", justifyContent: "right", padding: 16 }}>
+      <div style={{ display: "flex", justifyContent: "right", padding: 16, alignItems:"center" }}>
+        <span style={{padding: 16}}>{`Welcome ${userName}`}</span>
         {!open && (
           <Button variant="contained" onClick={handlePopUp}>
             Add New Activity

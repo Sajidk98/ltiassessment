@@ -15,14 +15,15 @@ export default function SignUp() {
   const initialValues = {
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    username:""
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: signUpSchema,
     onSubmit: (values) => {
-      dispatch(addUser({email: values.email, password: values.password}))
+      dispatch(addUser({email: values.email, password: values.password, username: values.username}))
       navigate('/')
     },
   });
@@ -32,6 +33,18 @@ export default function SignUp() {
     <div style={{flex:1}}></div>
     <div style={{flex:1}}>
       <form onSubmit={formik.handleSubmit}>
+      <div className="field-container">
+          <TextField
+            fullWidth
+            label="User Name"
+            variant="outlined"
+            name="username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username}
+          />
+        </div>
         <div className="field-container">
           <TextField
             fullWidth
